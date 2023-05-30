@@ -12,7 +12,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:3.18 as buildstage
 ARG ARGTABLE_VER="2.13"
 
 # environment settings
-ARG TZ="Etc/UTC"
+ARG TZ="America/New_York"
 ARG TVHEADEND_COMMIT
 ENV HOME="/config"
 
@@ -50,6 +50,10 @@ RUN \
     pkgconf \
     pngquant \
     python3 \
+    python3-dev \
+    py3-pip \
+    py3-lxml \
+    py3-wheel \
     sdl2-dev \
     uriparser-dev \
     x264-dev \
@@ -64,12 +68,12 @@ RUN \
 RUN \
   echo "**** compile tvheadend ****" && \
   if [ -z ${TVHEADEND_COMMIT+x} ]; then \
-    TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/tvheadend/tvheadend/commits/master \
+    TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/kegbeach/tvheadend_mod/commits/randomization \
     | jq -r '. | .sha'); \
   fi && \
   mkdir -p \
     /tmp/tvheadend && \
-  git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
+  git clone https://github.com/kegbeach/tvheadend_mod.git /tmp/tvheadend && \
   cd /tmp/tvheadend && \
   git checkout ${TVHEADEND_COMMIT} && \
   ./configure \
@@ -82,7 +86,7 @@ RUN \
     --disable-libvpx_static \
     --disable-libx264_static \
     --disable-libx265_static \
-    --disable-libfdkaac \
+    --enable-libfdkaac \
     --enable-libopus \
     --enable-libvorbis \
     --enable-libvpx \
@@ -148,6 +152,14 @@ RUN \
     /picons.tar.bz2 -C \
     /picons
 
+# streamlink dependencies
+RUN \
+ echo "**** compile streamlink dependencies and fetch plugins ****" && \
+ mkdir -p /tmp/python_wheels && \
+ pip3 wheel --wheel-dir=/tmp/python_wheels streamlink && \
+ mkdir -p /tmp/streamlink_plugins && \
+ curl -s -o /tmp/streamlink_plugins/chaturbate.py -L "https://raw.githubusercontent.com/kegbeach/streamlink_plugins/main/chaturbate.py"
+ 
 ############## runtime stage ##############
 FROM ghcr.io/linuxserver/baseimage-alpine:3.18
 
@@ -191,6 +203,7 @@ RUN \
     perl-json \
     py3-requests \
     python3 \
+    py3-pip \
     uriparser \
     x264 \
     x265 \
@@ -203,6 +216,14 @@ COPY --from=buildstage /tmp/comskip-build/usr/ /usr/
 COPY --from=buildstage /tmp/tvheadend-build/usr/ /usr/
 COPY --from=buildstage /picons /picons
 COPY root/ /
+
+# streamlink install
+COPY --from=buildstage /tmp/python_wheels/ /tmp/python_wheels/
+RUN \
+ echo "**** install streamlink and plugins ****" && \
+ pip3 install --no-index --find-links=/tmp/python_wheels streamlink && \
+ rm -rf /tmp/python_wheels
+COPY --from=buildstage /tmp/streamlink_plugins/ /usr/lib/python3.10/site-packages/streamlink/plugins/
 
 # ports and volumes
 EXPOSE 9981 9982
