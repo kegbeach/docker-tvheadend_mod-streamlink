@@ -191,11 +191,11 @@ RUN \
     libva \
     libva-intel-driver \
     intel-media-driver \
-    mesa \
     libvpx \
     libxml2 \
     libxslt \
     linux-headers \
+    mesa-va-gallium \
     opus \
     pcre2 \
     perl \
