@@ -224,7 +224,8 @@ RUN \
  echo "**** install streamlink and plugins ****" && \
  pip3 install --no-index --find-links=/tmp/python_wheels streamlink && \
  rm -rf /tmp/python_wheels
-COPY --from=buildstage /tmp/streamlink_plugins/ /usr/lib/python3.11/site-packages/streamlink/plugins/
+ mkdir -p /config/.local/share/streamlink/plugins
+COPY --from=buildstage /tmp/streamlink_plugins/ /config/.local/share/streamlink/plugins/
 
 # ports and volumes
 EXPOSE 9981 9982
