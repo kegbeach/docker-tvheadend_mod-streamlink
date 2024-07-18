@@ -5,7 +5,7 @@
 FROM ghcr.io/linuxserver/picons-builder as piconsstage
 
 
-FROM ghcr.io/linuxserver/baseimage-alpine:3.19 as buildstage
+FROM ghcr.io/linuxserver/baseimage-alpine:3.20 as buildstage
 ############## build stage ##############
 
 # package versions
@@ -161,7 +161,7 @@ RUN \
  curl -s -o /tmp/streamlink_plugins/chaturbate.py -L "https://raw.githubusercontent.com/kegbeach/streamlink_plugins/main/chaturbate.py"
  
 ############## runtime stage ##############
-FROM ghcr.io/linuxserver/baseimage-alpine:3.19
+FROM ghcr.io/linuxserver/baseimage-alpine:3.20
 
 # set version label
 ARG BUILD_DATE
@@ -209,7 +209,8 @@ RUN \
     x264 \
     x265 \
     xmltv \
-    zlib
+    zlib && \
+  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version
 
 # copy local files and buildstage artifacts
 COPY --from=buildstage /tmp/argtable-build/usr/ /usr/
