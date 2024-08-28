@@ -2,9 +2,9 @@ NAME                             VERSION                TYPE
 alpine-baselayout                3.6.5-r0               apk       
 alpine-baselayout-data           3.6.5-r0               apk       
 alpine-keys                      2.4-r1                 apk       
-alpine-release                   3.20.1-r0              apk       
+alpine-release                   3.20.2-r0              apk       
 alsa-lib                         1.2.11-r0              apk       
-aom-libs                         3.9.0-r0               apk       
+aom-libs                         3.9.1-r0               apk       
 apk-tools                        2.14.4-r0              apk       
 bash                             5.2.26-r0              apk       
 brotli-libs                      1.1.0-r2               apk       
@@ -22,7 +22,7 @@ coreutils                        9.5-r1                 apk
 coreutils-env                    9.5-r1                 apk       
 coreutils-fmt                    9.5-r1                 apk       
 coreutils-sha512sum              9.5-r1                 apk       
-curl                             8.8.0-r0               apk       
+curl                             8.9.0-r0               apk       
 dbus-libs                        1.14.10-r1             apk       
 ffmpeg                           6.1.1-r8               apk       
 ffmpeg-libavcodec                6.1.1-r8               apk       
@@ -74,7 +74,7 @@ libbluray                        1.3.4-r1               apk
 libbsd                           0.12.2-r0              apk       
 libbz2                           1.0.8-r6               apk       
 libcrypto3                       3.3.1-r3               apk       
-libcurl                          8.8.0-r0               apk       
+libcurl                          8.9.0-r0               apk       
 libdav1d                         1.4.2-r0               apk       
 libdovi                          3.3.0-r0               apk       
 libdrm                           2.4.120-r0             apk       
@@ -275,10 +275,10 @@ py3-requests                     2.32.3-r0              apk
 py3-requests-pyc                 2.32.3-r0              apk       
 py3-urllib3                      1.26.18-r1             apk       
 py3-urllib3-pyc                  1.26.18-r1             apk       
-pyc                              3.12.3-r1              apk       
-python3                          3.12.3-r1              apk       
-python3-pyc                      3.12.3-r1              apk       
-python3-pycache-pyc0             3.12.3-r1              apk       
+pyc                              3.12.3-r2              apk       
+python3                          3.12.3-r2              apk       
+python3-pyc                      3.12.3-r2              apk       
+python3-pycache-pyc0             3.12.3-r2              apk       
 rav1e-libs                       0.7.1-r0               apk       
 readline                         8.2.10-r0              apk       
 requests                         2.32.3                 python    
@@ -310,7 +310,7 @@ x265                             3.6-r0                 apk
 x265-libs                        3.6-r0                 apk       
 xmltv                            1.3.0-r0               apk       
 xvidcore                         1.3.7-r2               apk       
-xz-libs                          5.6.1-r3               apk       
+xz-libs                          5.6.2-r0               apk       
 zimg                             3.0.5-r2               apk       
 zix-libs                         0.4.2-r0               apk       
 zlib                             1.3.1-r1               apk       
