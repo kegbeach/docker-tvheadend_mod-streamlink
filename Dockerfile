@@ -176,7 +176,6 @@ RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
     bsd-compat-headers \
-    coreutils \
     ffmpeg \
     ffmpeg4-libavcodec \
     ffmpeg4-libavdevice \
@@ -225,7 +224,7 @@ COPY --from=buildstage /tmp/python_wheels/ /tmp/python_wheels/
 RUN \
  echo "**** install streamlink and plugins ****" && \
  pip3 install --break-system-packages --no-index --find-links=/tmp/python_wheels streamlink && \
- rm -rf /tmp/python_wheels
+ rm -rf /tmp/python_wheels && \
  mkdir -p /config/.local/share/streamlink/plugins
 COPY --from=buildstage /tmp/streamlink_plugins/ /config/.local/share/streamlink/plugins/
 
