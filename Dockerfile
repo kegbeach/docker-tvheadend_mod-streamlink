@@ -176,6 +176,7 @@ RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
     bsd-compat-headers \
+    coreutils \
     ffmpeg \
     ffmpeg4-libavcodec \
     ffmpeg4-libavdevice \
