@@ -223,7 +223,7 @@ COPY root/ /
 COPY --from=buildstage /tmp/python_wheels/ /tmp/python_wheels/
 RUN \
  echo "**** install streamlink and plugins ****" && \
- pip3 install --no-index --find-links=/tmp/python_wheels streamlink && \
+ pip3 install --break-system-packages --no-index --find-links=/tmp/python_wheels streamlink && \
  rm -rf /tmp/python_wheels
  mkdir -p /config/.local/share/streamlink/plugins
 COPY --from=buildstage /tmp/streamlink_plugins/ /config/.local/share/streamlink/plugins/
