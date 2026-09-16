@@ -159,7 +159,7 @@ RUN \
 RUN \
  echo "**** compile streamlink dependencies and fetch plugins ****" && \
  mkdir -p /tmp/python_wheels && \
- pip3 wheel --wheel-dir=/tmp/python_wheels streamlink && \
+ pip3 wheel --wheel-dir=/tmp/python_wheels 'urllib3<2.8' streamlink && \
  mkdir -p /tmp/streamlink_plugins && \
  curl -s -o /tmp/streamlink_plugins/chaturbate.py -L "https://raw.githubusercontent.com/kegbeach/streamlink_plugins/main/chaturbate.py"
  
@@ -226,7 +226,7 @@ COPY root/ /
 COPY --from=buildstage /tmp/python_wheels/ /tmp/python_wheels/
 RUN \
  echo "**** install streamlink and plugins ****" && \
- pip3 install --break-system-packages --no-index --find-links=/tmp/python_wheels streamlink && \
+ pip3 install --break-system-packages --no-index --find-links=/tmp/python_wheels 'urllib3<2.8' streamlink && \
  rm -rf /tmp/python_wheels && \
  mkdir -p /config/.local/share/streamlink/plugins
 COPY --from=buildstage /tmp/streamlink_plugins/ /config/.local/share/streamlink/plugins/
